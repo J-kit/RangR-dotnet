@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using Ranging.Abstractions;
-using Ranging.Extensions;
+using RangR.Abstractions;
+using RangR.Extensions;
 
-namespace Ranging
+namespace RangR
 {
     public class DateTimeRange : RangeBase<DateTime>
     {

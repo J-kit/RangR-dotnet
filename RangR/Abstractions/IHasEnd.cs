@@ -1,4 +1,4 @@
-﻿namespace Ranging.Abstractions
+﻿namespace RangR.Abstractions
 {
     public interface IHasEnd<T>
     {

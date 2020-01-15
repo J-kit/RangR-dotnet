@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 
-namespace Ranging.Expressions
+namespace RangR.Expressions
 {
     internal class DynamicExpressionBuilder<TDomainEntity>
     {

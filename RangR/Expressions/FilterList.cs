@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Ranging.Expressions
+namespace RangR.Expressions
 {
     public class FilterList<T> : ExpressionList<Func<T, bool>>
     {

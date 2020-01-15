@@ -1,11 +1,10 @@
-﻿using Ranging.Abstractions;
-using Ranging.Extensions;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using RangR.Abstractions;
+using RangR.Extensions;
 
-namespace Ranging
+namespace RangR
 {
     /*
          Comparer CheatSheet:

@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-namespace Ranging.Extensions
+namespace RangR.Extensions
 {
     public static class ComparerExtensions
     {

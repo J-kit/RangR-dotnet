@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace Ranging.Expressions
+namespace RangR.Expressions
 {
     public class RangeExpressionBuilder<TValue> where TValue : IComparable<TValue>
     {

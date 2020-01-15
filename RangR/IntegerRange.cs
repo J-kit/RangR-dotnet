@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Ranging
+namespace RangR
 {
     public class IntegerRange : RangeBase<int>
     {
