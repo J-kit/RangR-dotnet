@@ -5,32 +5,15 @@ using System.Linq.Expressions;
 
 namespace RangR.Expressions
 {
-    public static class ExpressionExtensions
-    {
-        public static Expression<Func<T, TReturn>> JoinExpressions<T, TReturn>(
-            this IEnumerable<Expression<Func<T, TReturn>>> expressions,
-            Func<System.Linq.Expressions.Expression, System.Linq.Expressions.Expression, BinaryExpression> joinCondition
-        )
-        {
-            return ExpressionEx.Join(expressions.ToList(), joinCondition);
-        }
-
-        public static RangeExpressionBuilder<TValue> ExpressionBuilder<TValue>(this RangeBase<TValue> range)
-            where TValue : IComparable<TValue>
-        {
-            return new RangeExpressionBuilder<TValue>(range);
-        }
-    }
-
     internal static class ExpressionEx
     {
-        public static T ReplaceParameter<T>(T expr, ParameterExpression toReplace, ParameterExpression replacement) where T : System.Linq.Expressions.Expression
+        internal static T ReplaceParameter<T>(T expr, ParameterExpression toReplace, ParameterExpression replacement) where T : System.Linq.Expressions.Expression
         {
             var replacer = new ExpressionReplacer(e => e == toReplace ? replacement : e);
             return (T)replacer.Visit(expr);
         }
 
-        public static Expression<Func<T, TReturn>> Join<T, TReturn>(
+        internal static Expression<Func<T, TReturn>> Join<T, TReturn>(
             IReadOnlyCollection<Expression<Func<T, TReturn>>> expressions,
             Func<System.Linq.Expressions.Expression, System.Linq.Expressions.Expression, BinaryExpression> joiner
         )
