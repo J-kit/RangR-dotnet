@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using RangR.Abstractions;
+using RangR.Exceptions;
 using RangR.Extensions;
 
 namespace RangR
@@ -67,8 +68,9 @@ namespace RangR
         {
             if (!this.Intersects(range))
             {
-                throw new Exception();
+                throw new OutOfRangeException("Ranges don't intersect!");
             }
+
             var start = base.Comparer.Max(base.Start, range.Start);
             var end = base.Comparer.Min(base.End, range.End);
 

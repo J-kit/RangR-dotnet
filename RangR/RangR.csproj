@@ -18,11 +18,23 @@
 
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
 
-    <Version>1.0.3</Version>
+    <Version>1.0.4</Version>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Utils\" />
+    <None Remove="Maths\Subtraction\AutoAbsolutor.tt" />
+    <None Remove="Maths\Subtraction\AutoSubtraction.tt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Maths\Absolution\AutoAbsolutor.tt">
+      <LastGenOutput>AutoAbsolutor.cs</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </Content>
+    <Content Include="Maths\Subtraction\AutoSubtraction.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AutoSubtraction.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -30,6 +42,28 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
+    <None Include="Maths\Subtraction\AutoSubtraction.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AutoSubtraction.tt</DependentUpon>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Maths\Absolution\AutoAbsolutor.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AutoAbsolutor.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Maths\Subtraction\AutoSubtraction.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AutoSubtraction.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
 
 </Project>

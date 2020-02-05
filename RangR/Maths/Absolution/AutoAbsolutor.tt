@@ -1,0 +1,85 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+
+using System;
+using RangR.Maths.Absolution;
+
+<#
+
+var types = new Type[]
+{
+    typeof(Byte),
+    // typeof(SByte),
+    typeof(Decimal),
+    typeof(Double),
+    typeof(Int16),
+    typeof(Int32),
+    typeof(Int64),
+    typeof(SByte),
+    typeof(Single),
+    typeof(UInt16),
+    typeof(UInt32),
+    typeof(UInt64),
+};
+
+
+
+#>
+    public static partial class Absolutor
+    {
+        static Absolutor()
+        {
+<#
+        foreach (var type in types)
+        {
+            base.ClearIndent();
+          
+#>             Absolutor<<#= type.Name #>>.Default = new  <#= type.Name #>Absolutor();<#
+            WriteLine("\t");
+        }
+        #>
+            
+        }
+
+        internal static void EnsureInitialized()
+        {
+            
+        }
+    }
+<#
+
+foreach (var type in types)
+{
+
+   base.ClearIndent();
+   WriteLine("");
+    #>
+    public class  <#= type.Name #>Absolutor : Absolutor<<#= type.Name #>>
+    {
+        public override <#= type.Name #> Abs(<#= type.Name #> v1)
+        {
+            <#
+   if (type.Name.StartsWith("U"))
+   {
+        #> return v1; <#
+   }
+   else
+   {
+        #> return (<#= type.Name #>)Math.Abs(v1); <#
+   }
+   WriteLine("");
+
+
+#>
+        }
+    }
+    <#
+
+}
+
+
+#>

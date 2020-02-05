@@ -10,7 +10,7 @@ namespace RangR
         {
         }
 
-        public bool TryMerge(int item, int maxInterval = 1)
+        public override bool TryMerge(int item, int maxInterval = 1)
         {
             if (base.Contains(item))
             {
@@ -35,7 +35,7 @@ namespace RangR
                 return true;
             }
 
-            var offset = Math.Abs(value - item);
+            var offset = System.Math.Abs(value - item);
             if (offset != 0 && offset <= maxInterval)
             {
                 setValue(item);
@@ -109,7 +109,7 @@ namespace RangR
             }
 
             var targetRanges = new List<IntegerRange>(ranges.Count);
-            foreach (var range in ranges.Where(range => !targetRanges.Any(x => x.TryMerge(range))))
+            foreach (var range in ranges.Where(range => !targetRanges.Any(x => x.TryMerge(range, maxInterval))))
             {
                 targetRanges.Add(range);
             }
