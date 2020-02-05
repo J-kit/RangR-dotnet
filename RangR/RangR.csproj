@@ -14,10 +14,11 @@
     <PackageTags>Ranges</PackageTags>
     <PackageIcon>icon.png</PackageIcon>
     <PackageIconUrl />
+    <IncludeSource>true</IncludeSource>
 
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
 
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
   </PropertyGroup>
 
   <ItemGroup>

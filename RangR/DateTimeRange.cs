@@ -65,6 +65,10 @@ namespace RangR
         public DateTimeRange GetIntersection<T>(T range)
             where T : IHasStart<DateTime>, IHasEnd<DateTime>
         {
+            if (!this.Intersects(range))
+            {
+                throw new Exception();
+            }
             var start = base.Comparer.Max(base.Start, range.Start);
             var end = base.Comparer.Min(base.End, range.End);
 

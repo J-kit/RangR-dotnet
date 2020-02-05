@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using RangR.Abstractions;
 
 namespace RangR.Extensions
 {
@@ -51,6 +52,11 @@ namespace RangR.Extensions
         public static int GetMonthlyOffset(this DateTime day)
         {
             return new DateTimeRange(day.FirstDayOfMonth(), day).Enumerate(TimespanType.Day).Count(x => x.DayOfWeek == day.DayOfWeek);
+        }
+
+        public static DateTimeRange AsDateTimeRange<T>(this T source) where T : IHasStart<DateTime>, IHasEnd<DateTime>
+        {
+            return new DateTimeRange(source.Start, source.End);
         }
     }
 }

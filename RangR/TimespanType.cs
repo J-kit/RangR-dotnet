@@ -5,6 +5,7 @@ namespace RangR
     public enum TimespanType
     {
         None,
+
         Second,
         Minute,
         Hour,
