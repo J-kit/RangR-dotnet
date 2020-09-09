@@ -2,9 +2,12 @@
 using System;
 using RangR.Maths.Absolution;
 
-    public static partial class Absolutor
+namespace RangR.Maths.Absolution
+{
+
+    public static class AutoAbsolutor
     {
-        static Absolutor()
+        static AutoAbsolutor()
         {
              Absolutor<Byte>.Default = new  ByteAbsolutor();	
              Absolutor<Decimal>.Default = new  DecimalAbsolutor();	
@@ -22,7 +25,7 @@ using RangR.Maths.Absolution;
 
         internal static void EnsureInitialized()
         {
-            
+            // Just trigger the static initialization
         }
     }
 
@@ -113,4 +116,4 @@ using RangR.Maths.Absolution;
              return v1; 
         }
     }
-    
+    }

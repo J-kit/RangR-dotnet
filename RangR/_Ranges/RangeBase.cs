@@ -95,6 +95,9 @@ namespace RangR
         public virtual bool TryMerge(RangeBase<T> other, T maxInterval)
         {
             var comparer = this.Comparer ?? other.Comparer;
+            var subtractor = Subtractor<T>.Default;
+            var absolutor = Absolutor<T>.Default;
+
             if (!this.IsValid || !other.IsValid)
             {
                 throw new ArgumentException("Invalid range");
@@ -107,9 +110,10 @@ namespace RangR
                 return true;
             }
 
-            var rangeStartDiff = Subtractor<T>.Default.Subtract(this.Start, other.End);
-            var diffAbs = Absolutor<T>.Default.Abs(rangeStartDiff);
-            if (comparer.IsBiggerThan(diffAbs, maxInterval))
+            var diffAbs = absolutor.Abs(subtractor.Subtract(this.Start, other.End));
+            var diffAbs1 = absolutor.Abs(subtractor.Subtract(this.End, other.Start));
+
+            if (comparer.IsBiggerThan(diffAbs, maxInterval) && comparer.IsBiggerThan(diffAbs1, maxInterval))
             {
                 return false;
             }

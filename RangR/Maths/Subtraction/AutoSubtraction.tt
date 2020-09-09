@@ -7,6 +7,8 @@
 
 using System;
 using RangR.Maths.Subtraction;
+namespace RangR.Maths.Subtraction
+{
 
 <#
 
@@ -23,14 +25,15 @@ var types = new Type[]
     typeof(UInt16),
     typeof(UInt32),
     typeof(UInt64),
+    typeof(TimeSpan),
 };
 
 
 
 #>
-    public static partial class Subtractor
+    public static class AutoSubtractor
     {
-        static Subtractor()
+        static AutoSubtractor()
         {
 <#
         foreach (var type in types)
@@ -46,7 +49,7 @@ var types = new Type[]
 
         internal static void EnsureInitialized()
         {
-            
+            // Just trigger the static initialization
         }
     }
 <#
@@ -69,15 +72,7 @@ foreach (var type in types)
 }
 
 
-string CamelCaseString(string input)
-{
-    if (string.IsNullOrEmpty(input))
-    {
-        return string.Empty;
-    }
-    var inArray = input.ToCharArray();
-    inArray[0] = char.ToLower(inArray[0]);
-    return new string(inArray);
-}
 
 #>
+
+}

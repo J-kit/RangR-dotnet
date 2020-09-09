@@ -18,23 +18,11 @@
 
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
 
-    <Version>1.0.4</Version>
+    <Version>1.0.13</Version>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Maths\Subtraction\AutoAbsolutor.tt" />
-    <None Remove="Maths\Subtraction\AutoSubtraction.tt" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Maths\Absolution\AutoAbsolutor.tt">
-      <LastGenOutput>AutoAbsolutor.cs</LastGenOutput>
-      <Generator>TextTemplatingFileGenerator</Generator>
-    </Content>
-    <Content Include="Maths\Subtraction\AutoSubtraction.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>AutoSubtraction.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -42,11 +30,11 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
-    <None Include="Maths\Subtraction\AutoSubtraction.cs">
+    <!--<None Include="Maths\Subtraction\AutoSubtraction.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>AutoSubtraction.tt</DependentUpon>
-    </None>
+    </None>-->
   </ItemGroup>
 
   <ItemGroup>
@@ -64,6 +52,17 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>AutoSubtraction.tt</DependentUpon>
     </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Maths\Absolution\AutoAbsolutor.tt">
+      <LastGenOutput>AutoAbsolutor.cs</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
+    <None Update="Maths\Subtraction\AutoSubtraction.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AutoSubtraction.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 
 </Project>

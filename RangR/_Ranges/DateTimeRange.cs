@@ -1,8 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using RangR.Abstractions;
+﻿using RangR.Abstractions;
 using RangR.Exceptions;
 using RangR.Extensions;
+
+using System;
+using System.Collections.Generic;
 
 namespace RangR
 {

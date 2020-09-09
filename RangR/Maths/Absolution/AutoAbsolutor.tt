@@ -1,4 +1,4 @@
-﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+﻿<#@ template language="C#" #>
 <#@ assembly name="System.Core" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
@@ -7,6 +7,9 @@
 
 using System;
 using RangR.Maths.Absolution;
+
+namespace RangR.Maths.Absolution
+{
 
 <#
 
@@ -29,9 +32,9 @@ var types = new Type[]
 
 
 #>
-    public static partial class Absolutor
+    public static class AutoAbsolutor
     {
-        static Absolutor()
+        static AutoAbsolutor()
         {
 <#
         foreach (var type in types)
@@ -47,7 +50,7 @@ var types = new Type[]
 
         internal static void EnsureInitialized()
         {
-            
+            // Just trigger the static initialization
         }
     }
 <#
@@ -83,3 +86,4 @@ foreach (var type in types)
 
 
 #>
+}

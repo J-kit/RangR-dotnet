@@ -1,7 +1,10 @@
-﻿using System;
+﻿using RangR.Utils;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
+// ReSharper disable once CheckNamespace
 namespace RangR
 {
     public class IntegerRange : RangeBase<int>
@@ -44,7 +47,7 @@ namespace RangR
             return false;
         }
 
-        public bool TryMerge(IntegerRange other, int maxInterval = 1)
+        public override bool TryMerge(RangeBase<int> other, int maxInterval = 1)
         {
             if (!this.IsValid || !other.IsValid)
             {
@@ -58,7 +61,7 @@ namespace RangR
                 return true;
             }
 
-            if (Math.Abs(base.Start - other.End) > maxInterval)
+            if (Math.Abs(base.Start - other.End) > maxInterval && Math.Abs(base.End - other.Start) > maxInterval)
             {
                 return false;
             }
@@ -77,7 +80,7 @@ namespace RangR
             return false;
         }
 
-        public static IEnumerable<IntegerRange> FromEnumerable(IEnumerable<int> enumerable, int maxInterval = 1)
+        public new static IEnumerable<IntegerRange> FromEnumerable(IEnumerable<int> enumerable, int maxInterval = 1)
         {
             var ranges = new List<IntegerRange>();
 
@@ -108,13 +111,7 @@ namespace RangR
                 ranges.Add(currentRange);
             }
 
-            var targetRanges = new List<IntegerRange>(ranges.Count);
-            foreach (var range in ranges.Where(range => !targetRanges.Any(x => x.TryMerge(range, maxInterval))))
-            {
-                targetRanges.Add(range);
-            }
-
-            return targetRanges;
+            return ranges.MergeIntersecting(maxInterval);
         }
     }
 }

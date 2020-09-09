@@ -1,10 +1,12 @@
 ﻿
 using System;
 using RangR.Maths.Subtraction;
+namespace RangR.Maths.Subtraction
+{
 
-    public static partial class Subtractor
+    public static class AutoSubtractor
     {
-        static Subtractor()
+        static AutoSubtractor()
         {
              Subtractor<Byte>.Default = new  ByteSubtractor();	
              Subtractor<Decimal>.Default = new  DecimalSubtractor();	
@@ -17,12 +19,13 @@ using RangR.Maths.Subtraction;
              Subtractor<UInt16>.Default = new  UInt16Subtractor();	
              Subtractor<UInt32>.Default = new  UInt32Subtractor();	
              Subtractor<UInt64>.Default = new  UInt64Subtractor();	
+             Subtractor<TimeSpan>.Default = new  TimeSpanSubtractor();	
             
         }
 
         internal static void EnsureInitialized()
         {
-            
+            // Just trigger the static initialization
         }
     }
 
@@ -114,3 +117,12 @@ using RangR.Maths.Subtraction;
         }
     }
     
+    public class  TimeSpanSubtractor : Subtractor<TimeSpan>
+    {
+        public override TimeSpan Subtract(TimeSpan v1, TimeSpan v2)
+        {
+            return (TimeSpan)(v1 - v2);
+        }
+    }
+    
+}
