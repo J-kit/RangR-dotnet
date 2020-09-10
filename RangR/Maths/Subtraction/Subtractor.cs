@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Reflection;
 
 namespace RangR.Maths.Subtraction
 {
@@ -27,8 +26,8 @@ namespace RangR.Maths.Subtraction
                 .GetMethods()
                 .FirstOrDefault
                 (
-                    x => x.IsSpecialName && 
-                         x.Name == "op_Subtraction" && 
+                    x => x.IsSpecialName &&
+                         x.Name == "op_Subtraction" &&
                          x.GetParameters().Select(m => m.ParameterType).SequenceEqual(new[] { type, type }) &&
                          x.ReturnType == typeof(T)
                 );
@@ -54,6 +53,7 @@ namespace RangR.Maths.Subtraction
         {
             this.func = func;
         }
+
         public override T Subtract(T v1, T v2)
         {
             return func(v1, v2);
@@ -64,10 +64,9 @@ namespace RangR.Maths.Subtraction
     {
         static Subtractor()
         {
-           AutoSubtractor.EnsureInitialized();
-
+            AutoSubtractor.EnsureInitialized();
+            Subtractor<DateTime>.Default = new DatetimeSubtractor();
         }
-
 
         public static void EnsureInitialized()
         {

@@ -4,6 +4,7 @@ using RangR.Extensions;
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace RangR
 {
@@ -13,6 +14,7 @@ namespace RangR
 
         public DateTimeRange(DateTime start, DateTime end) : base(start, end)
         {
+           
         }
 
         public DateTimeRange(DateTime start, TimeSpan duration) : base(start, start.Add(duration))
@@ -76,6 +78,16 @@ namespace RangR
             var end = base.Comparer.Min(base.End, range.End);
 
             return new DateTimeRange(start, end);
+        }
+
+
+        public static IEnumerable<DateTimeRange> FromEnumerable(IEnumerable<DateTime> dates, TimeSpan maxInterval)
+        {
+            return RangeBase<long>.FromEnumerable
+            (
+                dates.Select(x => x.ToFileTimeUtc()),
+                (long) TimeSpan.FromHours(0.5).Ticks
+            ).Select(x => new DateTimeRange(DateTime.FromFileTimeUtc(x.Start), DateTime.FromFileTimeUtc(x.End)));
         }
     }
 }

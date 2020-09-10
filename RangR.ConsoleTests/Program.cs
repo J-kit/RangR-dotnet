@@ -2,6 +2,7 @@
 using RangR.Utils;
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
@@ -16,8 +17,6 @@ namespace RangR.ConsoleTests
     //        _tr = tr;
     //    }
     //}
-
-
 
     internal class Program
     {
@@ -46,7 +45,16 @@ namespace RangR.ConsoleTests
         private static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
-            Subtractor<DateTime>.Default = new DatetimeSubtractor();
+
+            var ranges = new List<DateTimeRange>
+            {
+                new DateTimeRange(new DateTime(2020, 01, 01), new DateTime(2020, 01, 15)),
+                new DateTimeRange(new DateTime(2020, 01, 10), new DateTime(2020, 02, 01)),
+                new DateTimeRange(new DateTime(2020, 02, 03), new DateTime(2020, 02, 20)),
+                new DateTimeRange(new DateTime(2020, 03, 01), new DateTime(2020, 04, 01)),
+            };
+
+            var intersecting = ranges.MergeIntersecting(TimeSpan.FromDays(2));
 
             RefX();
 
@@ -88,6 +96,32 @@ namespace RangR.ConsoleTests
             };
 
             var timeIntersection = timeRanges.MergeIntersecting(TimeSpan.FromMinutes(1));
+        }
+
+        private static void TestFromEnumerable()
+        {
+            var dates = new List<DateTime>
+            {
+                new DateTime(2020, 09, 10, 10, 00, 0),
+                new DateTime(2020, 09, 10, 10, 20, 0),
+                new DateTime(2020, 09, 10, 10, 40, 0),
+                new DateTime(2020, 09, 10, 10, 50, 0),
+                new DateTime(2020, 09, 10, 11, 00, 0),
+                new DateTime(2020, 09, 10, 11, 30, 0),
+                new DateTime(2020, 09, 10, 12, 00, 0),
+
+                new DateTime(2020, 09, 10, 13, 00, 0),
+                new DateTime(2020, 09, 10, 13, 30, 0),
+                new DateTime(2020, 09, 10, 14, 00, 0),
+            };
+            //var rs = DateTimeRange.FromEnumerable(dates, DateTime.MinValue.AddHours(0.5)).ToList();
+            //TimeSpanRange.FromEnumerable()
+
+            var ranges = RangeBase<long>.FromEnumerable
+            (
+                dates.Select(x => x.ToFileTimeUtc()),
+                (long)TimeSpan.FromHours(0.5).Ticks
+            ).Select(x => new DateTimeRange(DateTime.FromFileTimeUtc(x.Start), DateTime.FromFileTimeUtc(x.End))).ToList();
         }
 
         private static void PerformanceTests()
