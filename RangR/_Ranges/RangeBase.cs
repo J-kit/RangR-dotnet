@@ -1,12 +1,12 @@
 ﻿using RangR.Abstractions;
 using RangR.Extensions;
+using RangR.Maths.Absolution;
 using RangR.Maths.Subtraction;
 
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using RangR.Maths.Absolution;
 
 namespace RangR
 {
@@ -22,7 +22,7 @@ namespace RangR
      */
 
     [DebuggerDisplay("{" + nameof(Start) + "} - {" + nameof(End) + "} ")]
-    public class RangeBase<T> : IEquatable<RangeBase<T>>, IHasStart<T>, IHasEnd<T>
+    public class RangeBase<T> : IEquatable<RangeBase<T>>, IHasStart<T>, IHasEnd<T>, ICanBeValid
     {
         private static readonly Comparer<T> DefaultComparer = Comparer<T>.Default;
         public virtual bool IsValid => Comparer.IsLessThanOrEqual(this.Start, this.End);
@@ -55,6 +55,19 @@ namespace RangR
         public bool Contains(T comparable)
         {
             return Comparer.Compare(this.Start, comparable) <= 0 && Comparer.Compare(this.End, comparable) >= 0;
+        }
+
+        public bool Contains<TComparable>(TComparable rSmall) where TComparable : IHasStart<T>, IHasEnd<T>
+        {
+            var rbStart = this.Start;
+            var rbEnd = this.End;
+
+            var rsStart = rSmall.Start;
+            var rsEnd = rSmall.End;
+
+            return
+                this.IsValid && rSmall.RangeIsValid(this.Comparer) && 
+                Comparer.IsLessThanOrEqual(rbStart, rsStart) && Comparer.IsBiggerThanOrEqual(rbEnd, rsEnd);
         }
 
         public virtual bool TryMerge(T item, T maxInterval) // where T : IEquatable<T>
