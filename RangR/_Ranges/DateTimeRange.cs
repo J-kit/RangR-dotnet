@@ -86,7 +86,7 @@ namespace RangR
             return RangeBase<long>.FromEnumerable
             (
                 dates.Select(x => x.ToFileTimeUtc()),
-                (long) TimeSpan.FromHours(0.5).Ticks
+                (long) maxInterval.Ticks //TimeSpan.FromHours(0.5).Ticks
             ).Select(x => new DateTimeRange(DateTime.FromFileTimeUtc(x.Start), DateTime.FromFileTimeUtc(x.End)));
         }
     }

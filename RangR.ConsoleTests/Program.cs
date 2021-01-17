@@ -8,42 +8,64 @@ using System.Linq;
 
 namespace RangR.ConsoleTests
 {
-    //public ref struct DoSomething
-    //{
-    //    private TypedReference _tr;
+    public static class Ext
+    {
+        //public static void AddMany(ICollection<string> collection, string[] source)
+        //{
+        //    for (int i = 0; i < source.Length; i++)
+        //    {
+        //        collection.Add(source[i]);
+        //    }
+        //}
 
-    //    public DoSomething(TypedReference tr)
-    //    {
-    //        _tr = tr;
-    //    }
-    //}
+        //public static void AddMany(ICollection<int> collection, int[] source)
+        //{
+        //    for (int i = 0; i < source.Length; i++)
+        //    {
+        //        collection.Add(source[i]);
+        //    }
+        //}
+
+        //public static void AddMany(ICollection<KeyValuePair<string, string>> collection, KeyValuePair<string, string>[] source)
+        //{
+        //    for (int i = 0; i < source.Length; i++)
+        //    {
+        //        collection.Add(source[i]);
+        //    }
+        //}
+
+        public static TCollection AddMany<TType, TCollection>(this TCollection collection, TType[] source)
+            where TCollection : ICollection<TType>
+        {
+            for (int i = 0; i < source.Length; i++)
+            {
+                collection.Add(source[i]);
+            }
+
+            return collection;
+        }
+    }
 
     internal class Program
     {
-        private static void RefX()
-        {
-            float i = 21.001f;
-            TypedReference tr = __makeref(i);
-            Type t = __reftype(tr);
-            Console.WriteLine(t.ToString());
-            var rv = __refvalue(tr, float);
-            Console.WriteLine(rv);
-
-            DisplayNumbersOnConsole(__arglist(1, 2, 3, 5, 6));
-        }
-
-        public static void DisplayNumbersOnConsole(__arglist)
-        {
-            ArgIterator ai = new ArgIterator(__arglist);
-            while (ai.GetRemainingCount() > 0)
-            {
-                TypedReference tr = ai.GetNextArg();
-                Console.WriteLine(TypedReference.ToObject(tr));
-            }
-        }
-
         private static void Main(string[] args)
         {
+            var source = new string[] { "Hallo", "welt" };
+
+            List<string> list = new List<string>();
+            List<string> newList = list.AddMany(source);
+
+            var dict = new HashSet<string>();
+
+            Ext.AddMany(dict, source);
+
+            Dictionary<string, string> dst = new Dictionary<string, string>()
+                .AddMany(new KeyValuePair<string, string>[]
+                {
+                    new KeyValuePair<string, string>("a","a"),
+                    new KeyValuePair<string, string>("aa","aa"),
+                });
+
             Console.WriteLine("Hello World!");
 
             var ranges = new List<DateTimeRange>
@@ -96,6 +118,28 @@ namespace RangR.ConsoleTests
             };
 
             var timeIntersection = timeRanges.MergeIntersecting(TimeSpan.FromMinutes(1));
+        }
+
+        private static void RefX()
+        {
+            float i = 21.001f;
+            TypedReference tr = __makeref(i);
+            Type t = __reftype(tr);
+            Console.WriteLine(t.ToString());
+            var rv = __refvalue(tr, float);
+            Console.WriteLine(rv);
+
+            DisplayNumbersOnConsole(__arglist(1, 2, 3, 5, 6));
+        }
+
+        public static void DisplayNumbersOnConsole(__arglist)
+        {
+            ArgIterator ai = new ArgIterator(__arglist);
+            while (ai.GetRemainingCount() > 0)
+            {
+                TypedReference tr = ai.GetNextArg();
+                Console.WriteLine(TypedReference.ToObject(tr));
+            }
         }
 
         private static void TestFromEnumerable()
